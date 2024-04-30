@@ -1,12 +1,15 @@
-import type { Metadata } from 'next'
+import { ClerkProvider } from '@clerk/nextjs'
 import { Inter } from 'next/font/google'
+
 import './globals.css'
-import Header from '@/components/layout/header'
 import Footer from '@/components/layout/footer'
+import Header from '@/components/layout/header'
 import Main from '@/components/layout/main'
+import { ThemeProvider } from '@/components/providers/theme-provider'
 import Sidebar from '@/components/sidebar/sidebar'
 import { cn } from '@/lib/utils'
-import { ThemeProvider } from '@/components/providers/theme-provider'
+
+import type { Metadata } from 'next'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,22 +24,24 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='ja' suppressHydrationWarning={true}>
-      <body className={cn([inter.className, 'flex flex-col'])}>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          <div className='flex flex-1'>
-            <Sidebar />
-            <Main>{children}</Main>
-          </div>
-          <Footer />
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang='ja' suppressHydrationWarning={true}>
+        <body className={cn([inter.className, 'flex flex-col'])}>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            <div className='flex flex-1'>
+              <Sidebar />
+              <Main>{children}</Main>
+            </div>
+            <Footer />
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
