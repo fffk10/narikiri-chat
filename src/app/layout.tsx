@@ -6,6 +6,7 @@ import Footer from '@/components/layout/footer'
 import Main from '@/components/layout/main'
 import Sidebar from '@/components/sidebar/sidebar'
 import { cn } from '@/lib/utils'
+import { ThemeProvider } from '@/components/providers/theme-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,12 +23,19 @@ export default function RootLayout({
   return (
     <html lang='ja'>
       <body className={cn([inter.className, 'flex flex-col'])}>
-        <Header />
-        <div className='flex flex-1'>
-          <Sidebar />
-          <Main>{children}</Main>
-        </div>
-        <Footer />
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <div className='flex flex-1'>
+            <Sidebar />
+            <Main>{children}</Main>
+          </div>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   )
