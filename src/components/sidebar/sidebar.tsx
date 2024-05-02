@@ -1,19 +1,20 @@
 'use client'
 
 import { SignedOut, SignInButton, SignedIn, UserButton } from '@clerk/nextjs'
-import { Home, Search, Settings2 } from 'lucide-react'
+import { Home, MessageCircleMore, Search, Settings2 } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 
 import SidebarItem from '@/components/sidebar/sidebar-item'
 import { ModeToggle } from '@/components/theme/mode-toggle'
 
 type SidebarItem = {
-  link: '' | 'search' | 'settings'
+  link: '' | 'chat' | 'search' | 'settings'
   icon: React.ReactNode
 }
 
 const SIDEBAR_ITEMS: SidebarItem[] = [
   { link: '', icon: <Home /> },
+  { link: 'chat', icon: <MessageCircleMore /> },
   { link: 'search', icon: <Search /> },
   { link: 'settings', icon: <Settings2 /> },
 ]
