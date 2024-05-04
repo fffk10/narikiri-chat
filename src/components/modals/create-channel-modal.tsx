@@ -1,16 +1,19 @@
 import {
   Dialog,
-  DialogTrigger,
   DialogContent,
   DialogTitle,
   DialogDescription,
   DialogHeader,
 } from '@/components/ui/dialog'
+import { useModal } from '@/hooks/use-modal-store'
 
-export default function ChannelCreateModal() {
+export default function CreateChannelModal() {
+  const { isOpen, type, onClose } = useModal()
+
+  const isModalOpen = isOpen && type === 'createChannel'
+
   return (
-    <Dialog>
-      <DialogTrigger>Open</DialogTrigger>
+    <Dialog open={isModalOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
