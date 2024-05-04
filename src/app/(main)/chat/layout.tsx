@@ -60,7 +60,7 @@ export default async function ChatLayout({
   }
 
   return (
-    <div className='flex h-full'>
+    <div className='flex-1 flex h-full'>
       <ChatSidebar channels={channels} />
       {children}
     </div>

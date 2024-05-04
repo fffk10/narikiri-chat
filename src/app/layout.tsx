@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang='ja' suppressHydrationWarning={true}>
-        <body className={cn([inter.className, 'flex flex-col'])}>
+        <body className={cn([inter.className, 'flex flex-col h-screen'])}>
           <ThemeProvider
             attribute='class'
             defaultTheme='system'
@@ -34,7 +34,8 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Header />
-            <div className='flex flex-1'>
+
+            <div className='flex flex-1 overflow-y-auto'>
               <Sidebar />
               <Main>{children}</Main>
             </div>

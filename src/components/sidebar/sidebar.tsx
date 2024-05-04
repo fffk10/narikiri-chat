@@ -28,7 +28,7 @@ export default function Sidebar() {
   }
 
   return (
-    <aside className='hidden  p-4 md:flex flex-col shadow-md'>
+    <aside className='hidden  p-4 md:flex flex-1 flex-col shadow-md'>
       <nav className='flex flex-col flex-1'>
         <ul className='mx-auto'>
           {SIDEBAR_ITEMS.map((item) => (
