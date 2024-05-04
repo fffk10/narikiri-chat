@@ -346,10 +346,12 @@ export default async function ChannelPage({
   const channelMessages = await fetchChannelMessages()
 
   return (
-    <div className='p-4 flex flex-col flex-1'>
-      <p className='text-xl'>{channel.name}</p>
+    <div className='flex flex-col flex-1'>
+      <div className='p-2'>
+        <p className='text-xl'>{channel.name}</p>
+      </div>
 
-      <div className='overflow-hidden overflow-y-auto'>
+      <div className='p-2 overflow-hidden overflow-y-auto'>
         {channelMessages.map((message) => (
           <div key={message.id}>
             <p>{message.content}</p>
