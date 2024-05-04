@@ -2,11 +2,8 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { Inter } from 'next/font/google'
 
 import './globals.css'
-import Footer from '@/components/layout/footer'
-import Header from '@/components/layout/header'
-import Main from '@/components/layout/main'
+import { ModalProvider } from '@/components/providers/modal-provider'
 import { ThemeProvider } from '@/components/providers/theme-provider'
-import Sidebar from '@/components/sidebar/sidebar'
 import { cn } from '@/lib/utils'
 
 import type { Metadata } from 'next'
@@ -33,13 +30,8 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Header />
-
-            <div className='flex flex-1 overflow-y-auto'>
-              <Sidebar />
-              <Main>{children}</Main>
-            </div>
-            <Footer />
+            <ModalProvider />
+            {children}
           </ThemeProvider>
         </body>
       </html>
