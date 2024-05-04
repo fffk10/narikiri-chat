@@ -1,6 +1,7 @@
 'use client'
 
 import { Channel } from '@prisma/client'
+import { Plus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 import ChatSidebarItems from '@/components/chat/chat-sidebar-items'
@@ -17,17 +18,28 @@ export default function ChatSidebar({ channels }: ChatSidebarProps) {
     router.push(`/chat/${id}`)
   }
 
+  const createChannel = () => {
+    console.log('click')
+  }
+
   return (
-    <ScrollArea className='p-4 w-[220px] border'>
-      <ul>
-        {channels?.map((channel) => (
-          <ChatSidebarItems
-            key={channel.id}
-            channel={channel}
-            onClick={() => onClick(channel.id)}
-          />
-        ))}
-      </ul>
-    </ScrollArea>
+    <div className='p-4 w-[220px] border'>
+      <div className='flex justify-end'>
+        <button onClick={createChannel}>
+          <Plus size={16} />
+        </button>
+      </div>
+      <ScrollArea>
+        <ul>
+          {channels?.map((channel) => (
+            <ChatSidebarItems
+              key={channel.id}
+              channel={channel}
+              onClick={() => onClick(channel.id)}
+            />
+          ))}
+        </ul>
+      </ScrollArea>
+    </div>
   )
 }

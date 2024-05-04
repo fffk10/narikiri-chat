@@ -1,4 +1,4 @@
-import { ChannelMessage } from '@prisma/client'
+import { Channel, ChannelMessage } from '@prisma/client'
 
 const dummyResponse: ChannelMessage[] = [
   {
@@ -328,6 +328,16 @@ export default async function ChannelPage({
 }: {
   params: { channelId: string }
 }) {
+  const channel: Channel = {
+    id: 'channel1',
+    name: 'general',
+    owner: 'owner',
+    description: '説明',
+    imageUrl: '',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  }
+
   const fetchChannelMessages = async () => {
     setTimeout(() => {}, 2000)
     return dummyResponse
@@ -337,7 +347,7 @@ export default async function ChannelPage({
 
   return (
     <div className='p-4 flex flex-col flex-1'>
-      <p className='text-xl'>ChannelPage #{params.channelId}</p>
+      <p className='text-xl'>{channel.name}</p>
 
       <div className='overflow-hidden overflow-y-auto'>
         {channelMessages.map((message) => (
