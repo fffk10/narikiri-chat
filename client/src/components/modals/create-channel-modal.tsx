@@ -21,10 +21,11 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useModal } from '@/hooks/use-modal-store'
+import FileUpload from '@/components/utils/file-upload'
 
 const formScheme = z.object({
   name: z.string().min(1).max(255),
-  // imageUrl: z.string().url(),
+  imageUrl: z.string().url(),
 })
 
 export default function CreateChannelModal() {
@@ -35,7 +36,7 @@ export default function CreateChannelModal() {
     resolver: zodResolver(formScheme),
     defaultValues: {
       name: '',
-      // imageUrl: '',
+      imageUrl: '',
     },
   })
 
@@ -52,6 +53,7 @@ export default function CreateChannelModal() {
       id: 'channel-' + Math.random().toString(36).substr(2, 9),
       name: values.name,
       owner: 'user-1',
+      imageUrl: values.imageUrl,
     }
 
     try {
@@ -75,6 +77,24 @@ export default function CreateChannelModal() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             <div className='space-y-8 px-6'>
+              <div className='flex items-center justify-center text-center'>
+                <FormField
+                  control={form.control}
+                  name='imageUrl'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <FileUpload
+                          endpoint='image'
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
+
               <FormField
                 control={form.control}
                 name='name'
