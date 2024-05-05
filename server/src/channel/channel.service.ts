@@ -30,6 +30,7 @@ export class ChannelService {
    * @returns {Promise<Channel>} 登録したチャンネル
    */
   async createChannel(data: Prisma.ChannelCreateInput): Promise<Channel> {
+    // 作成日時と更新日時を設定
     const createdAt = new Date()
     const updatedAt = new Date()
 
