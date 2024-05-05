@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
+import axios from 'axios'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -44,7 +45,23 @@ export default function CreateChannelModal() {
     onClose()
   }
 
-  const onSubmit = async (values: z.infer<typeof formScheme>) => {}
+  const onSubmit = async (values: z.infer<typeof formScheme>) => {
+    const url = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/channel`
+
+    let request = {
+      id: 'channel-' + Math.random().toString(36).substr(2, 9),
+      name: values.name,
+      owner: 'user-1',
+    }
+
+    try {
+      const response = await axios.post(url, request)
+      form.reset()
+      handleClose()
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
