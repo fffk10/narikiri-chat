@@ -7,14 +7,20 @@ import { Channel, Prisma } from '@prisma/client'
 export class ChannelService {
   constructor(private prisma: PrismaService) {}
 
-  async channels(params: {
-    skip?: number
-    take?: number
-    cursor?: Prisma.UserWhereUniqueInput
-    where?: Prisma.UserWhereInput
-    orderBy?: Prisma.UserOrderByWithRelationInput
-  }) {
-    return [{ id: 1, name: 'channel 1' }]
-    // return this.prisma.channel.findMany()
+  /**
+   * 単体取得
+   * @param where 検索条件
+   * @returns {Promise<Channel | null>} チャンネル
+   */
+  async channel(id: string) {
+    return this.prisma.channel.findUnique({ where: { id } })
+  }
+
+  /**
+   * 全体取得
+   * @returns {Promise<Channel[]>} チャンネル一覧
+   */
+  async channels() {
+    return this.prisma.channel.findMany()
   }
 }
