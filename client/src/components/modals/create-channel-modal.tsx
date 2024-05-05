@@ -44,9 +44,7 @@ export default function CreateChannelModal() {
     onClose()
   }
 
-  const onSubmit = async (values: z.infer<typeof formScheme>) => {
-    console.log(formScheme)
-  }
+  const onSubmit = async (values: z.infer<typeof formScheme>) => {}
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
