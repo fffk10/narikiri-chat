@@ -12,7 +12,7 @@ export class ChannelService {
    * @param where 検索条件
    * @returns {Promise<Channel | null>} チャンネル
    */
-  async channel(id: string) {
+  async channel(id: string): Promise<Channel | null> {
     return this.prisma.channel.findUnique({ where: { id } })
   }
 
@@ -20,7 +20,21 @@ export class ChannelService {
    * 全体取得
    * @returns {Promise<Channel[]>} チャンネル一覧
    */
-  async channels() {
+  async channels(): Promise<Channel[]> {
     return this.prisma.channel.findMany()
+  }
+
+  /**
+   * 単体登録
+   * @param data 登録データ
+   * @returns {Promise<Channel>} 登録したチャンネル
+   */
+  async createChannel(data: Prisma.ChannelCreateInput): Promise<Channel> {
+    const createdAt = new Date()
+    const updatedAt = new Date()
+
+    return this.prisma.channel.create({
+      data: { ...data, createdAt, updatedAt },
+    })
   }
 }
