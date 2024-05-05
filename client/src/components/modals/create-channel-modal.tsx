@@ -7,7 +7,6 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-  DialogDescription,
   DialogHeader,
   DialogFooter,
 } from '@/components/ui/dialog'
@@ -24,7 +23,7 @@ import { useModal } from '@/hooks/use-modal-store'
 
 const formScheme = z.object({
   name: z.string().min(1).max(255),
-  imageUrl: z.string().url(),
+  // imageUrl: z.string().url(),
 })
 
 export default function CreateChannelModal() {
@@ -35,7 +34,7 @@ export default function CreateChannelModal() {
     resolver: zodResolver(formScheme),
     defaultValues: {
       name: '',
-      imageUrl: '',
+      // imageUrl: '',
     },
   })
 
@@ -45,55 +44,35 @@ export default function CreateChannelModal() {
     onClose()
   }
 
-  const onSubmit = () => {}
+  const onSubmit = async (values: z.infer<typeof formScheme>) => {
+    console.log(formScheme)
+  }
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className='bg-white text-black p-0 overflow-hidden'>
         <DialogHeader className='pt-8 px-6'>
           <DialogTitle className='text-2xl font-bold'>
-            Customize your server
+            チャンネル作成
           </DialogTitle>
-          <DialogDescription className='text-center'>
-            Give your server a personality with a name and an image. You can
-            always change it later.
-          </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             <div className='space-y-8 px-6'>
-              <div className='flex items-center justify-center text-center'>
-                <FormField
-                  control={form.control}
-                  name='imageUrl'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        {/* <FileUpload
-                          endpoint='serverImage'
-                          value={field.value}
-                          onChange={field.onChange}
-                        /> */}
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </div>
-
               <FormField
                 control={form.control}
                 name='name'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70'>
-                      Server Name
+                      Channel Name
                     </FormLabel>
                     <FormControl>
                       <Input
                         disabled={isLoading}
                         className='bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0'
-                        placeholder='Enter server name'
+                        placeholder='Enter channel name'
                         {...field}
                       />
                     </FormControl>
