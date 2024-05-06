@@ -1,7 +1,8 @@
 import { PrismaService } from '@/prisma/prisma.service'
 import { Injectable } from '@nestjs/common'
 
-import { Channel, Prisma } from '@prisma/client'
+import { Channel, ChannelType, MemberRole, Prisma } from '@prisma/client'
+import { response } from 'express'
 
 @Injectable()
 export class ChannelService {
@@ -30,12 +31,34 @@ export class ChannelService {
    * @returns {Promise<Channel>} 登録したチャンネル
    */
   async createChannel(data: Prisma.ChannelCreateInput): Promise<Channel> {
+    const { id, name, owner, imageUrl } = data
     // 作成日時と更新日時を設定
     const createdAt = new Date()
     const updatedAt = new Date()
 
-    return this.prisma.channel.create({
-      data: { ...data, createdAt, updatedAt },
+    // チャンネル登録
+    const response = await this.prisma.channel.create({
+      data: {
+        id,
+        name,
+        owner,
+        imageUrl,
+        createdAt,
+        updatedAt,
+        ChannelMember: {
+          create: {
+            memberId: owner,
+            role: MemberRole.OWNER,
+            createdAt,
+            updatedAt,
+          },
+        },
+      },
+      include: {
+        ChannelMember: true,
+      },
     })
+
+    return response
   }
 }
