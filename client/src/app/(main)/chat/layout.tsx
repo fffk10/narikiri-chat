@@ -1,4 +1,5 @@
 import { Channel } from '@prisma/client'
+import axios from 'axios'
 import { Metadata } from 'next'
 
 import ChatSidebar from '@/components/chat/chat-sidebar'
@@ -13,41 +14,8 @@ export default async function ChatLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const fetchChannels = async (): Promise<Channel[]> => {
-    setTimeout(() => {}, 1000)
-
-    return [
-      {
-        id: '1',
-        name: 'general',
-        owner: 'owner',
-        description: '説明',
-        imageUrl: '',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id: '2',
-        name: 'second',
-        owner: 'owner',
-        description: '説明',
-        imageUrl: '',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id: '3',
-        name: 'third',
-        owner: 'owner',
-        description: '説明',
-        imageUrl: '',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ]
-  }
-
-  const channels: Channel[] | null = await fetchChannels()
+  const url = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/channel`
+  const channels: Channel[] = await axios.get(url).then((res) => res.data)
 
   if (channels && channels?.length === 0) {
     return (
