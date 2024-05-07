@@ -1,6 +1,11 @@
 {
-  "extends": "next/core-web-vitals",
-  "plugins": ["unused-imports"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:storybook/recommended"
+  ],
+  "plugins": [
+    "unused-imports"
+  ],
   "rules": {
     "import/order": [
       "error",
@@ -9,7 +14,10 @@
           "builtin",
           "external",
           "internal",
-          ["parent", "sibling"],
+          [
+            "parent",
+            "sibling"
+          ],
           "index",
           "object",
           "type"
@@ -21,6 +29,11 @@
       }
     ],
     "unused-imports/no-unused-imports": "error",
-    "ignorePatterns": ["node_modules/", ".next/", "out/", "next.config.mjs"]
+    "ignorePatterns": [
+      "node_modules/",
+      ".next/",
+      "out/",
+      "next.config.mjs"
+    ]
   }
 }
