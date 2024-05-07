@@ -18,7 +18,13 @@ export class ChannelController {
 
   @Post()
   async createChannel(
-    @Body() data: Prisma.ChannelCreateInput
+    @Body()
+    data: {
+      name: string
+      ownerId: string
+      description?: string
+      imageUrl?: string
+    }
   ): Promise<Channel> {
     return this.channelService.createChannel(data)
   }

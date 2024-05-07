@@ -30,8 +30,12 @@ export class ChannelService {
    * @param data 登録データ
    * @returns {Promise<Channel>} 登録したチャンネル
    */
-  async createChannel(data: Prisma.ChannelCreateInput): Promise<Channel> {
-    const { id, name, owner, imageUrl } = data
+  async createChannel(data: {
+    name: string
+    ownerId: string
+    description?: string
+    imageUrl?: string
+  }): Promise<Channel> {
     // 作成日時と更新日時を設定
     const createdAt = new Date()
     const updatedAt = new Date()
@@ -39,23 +43,23 @@ export class ChannelService {
     // チャンネル登録
     const response = await this.prisma.channel.create({
       data: {
-        id,
-        name,
-        owner,
-        imageUrl,
+        ...data,
         createdAt,
         updatedAt,
         ChannelMember: {
           create: {
-            memberId: owner,
-            role: MemberRole.OWNER,
+            memberId: data.ownerId,
+            role: MemberRole.ADMIN,
             createdAt,
             updatedAt,
           },
         },
-      },
-      include: {
-        ChannelMember: true,
+        ChannelDetail: {
+          create: {
+            type: ChannelType.PUBLIC,
+            updatedAt,
+          },
+        },
       },
     })
 
