@@ -1,4 +1,5 @@
 import { db } from '@/lib/db'
+import { initialUser } from '@/lib/initial-user'
 import { auth } from '@clerk/nextjs/server'
 
 export const currentUser = async () => {
@@ -6,12 +7,13 @@ export const currentUser = async () => {
 
   if (!userId) return null
 
-  const user = await db.user.findUnique({
+  let user = await db.user.findUnique({
     where: { id: userId },
   })
 
   if (!user) {
-    // 未登録だったら登録する
+    // 未登録だったらDB登録する
+    user = await initialUser()
   }
 
   return user
