@@ -53,7 +53,7 @@ export default function CreateChannelModal() {
   }
 
   const onSubmit = async (values: z.infer<typeof formScheme>) => {
-    const url = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/channel`
+    const url = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/v1/channel`
 
     let request = {
       name: values.name,
