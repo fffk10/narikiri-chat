@@ -22,6 +22,8 @@ import {
 import { Input } from '@/components/ui/input'
 import { useModal } from '@/hooks/use-modal-store'
 import FileUpload from '@/components/utils/file-upload'
+import { useUser } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 
 const formScheme = z.object({
   name: z.string().min(1).max(255),
@@ -29,8 +31,12 @@ const formScheme = z.object({
 })
 
 export default function CreateChannelModal() {
+  const router = useRouter()
+
   const { isOpen, type, onClose } = useModal()
   const isModalOpen = isOpen && type === 'createChannel'
+
+  const { user } = useUser()
 
   const form = useForm({
     resolver: zodResolver(formScheme),
@@ -50,16 +56,16 @@ export default function CreateChannelModal() {
     const url = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/channel`
 
     let request = {
-      id: 'channel-' + Math.random().toString(36).substr(2, 9),
       name: values.name,
-      owner: 'user-1',
+      ownerId: user?.id ?? '',
       imageUrl: values.imageUrl,
     }
 
     try {
-      const response = await axios.post(url, request)
+      await axios.post(url, request)
       form.reset()
       handleClose()
+      router.refresh()
     } catch (error) {
       console.error(error)
     }

@@ -3,6 +3,9 @@ import axios from 'axios'
 import { Metadata } from 'next'
 
 import ChatSidebar from '@/components/chat/chat-sidebar'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import ChannelEmpty from '@/components/chat/channel-empty'
 
 export const metadata: Metadata = {
   title: 'Chat',
@@ -18,13 +21,7 @@ export default async function ChatLayout({
   const channels: Channel[] = await axios.get(url).then((res) => res.data)
 
   if (channels && channels?.length === 0) {
-    return (
-      <div className='text-center'>
-        参加しているチャンネルがありません。
-        <br />
-        チャンネルを検索するか、新しいチャンネルを作成してください。
-      </div>
-    )
+    return <ChannelEmpty />
   }
 
   return (
