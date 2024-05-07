@@ -26,6 +26,7 @@ export class ChannelController {
       imageUrl?: string
     }
   ): Promise<Channel> {
-    return this.channelService.createChannel(data)
+    const response = this.channelService.createChannel(data)
+    return response
   }
 }

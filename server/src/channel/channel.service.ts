@@ -41,7 +41,7 @@ export class ChannelService {
     const updatedAt = new Date()
 
     // チャンネル登録
-    const response = await this.prisma.channel.create({
+    let response = await this.prisma.channel.create({
       data: {
         ...data,
         createdAt,
