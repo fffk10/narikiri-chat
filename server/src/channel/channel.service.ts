@@ -36,28 +36,18 @@ export class ChannelService {
     description?: string
     imageUrl?: string
   }): Promise<Channel> {
-    // 作成日時と更新日時を設定
-    const createdAt = new Date()
-    const updatedAt = new Date()
-
-    // チャンネル登録
     let response = await this.prisma.channel.create({
       data: {
         ...data,
-        createdAt,
-        updatedAt,
         ChannelMember: {
           create: {
             memberId: data.ownerId,
             role: MemberRole.ADMIN,
-            createdAt,
-            updatedAt,
           },
         },
         ChannelDetail: {
           create: {
             type: ChannelType.PUBLIC,
-            updatedAt,
           },
         },
       },
