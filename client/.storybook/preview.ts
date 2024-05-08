@@ -16,7 +16,6 @@ const preview: Preview = {
   decorators: [
     withThemeByDataAttribute({
       themes: {
-        // nameOfTheme: 'dataAttributeForTheme',
         light: '',
         dark: 'dark',
       },
