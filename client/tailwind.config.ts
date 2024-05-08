@@ -3,13 +3,8 @@ import { withUt } from 'uploadthing/tw'
 import type { Config } from 'tailwindcss'
 
 export default withUt({
-  darkMode: ['class'],
-  content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-  ],
+  darkMode: ['class', '[data-mode="dark"]'],
+  content: ['./src/**/*.{ts,tsx}'],
   prefix: '',
   theme: {
     container: {
