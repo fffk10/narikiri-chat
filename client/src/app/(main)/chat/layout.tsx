@@ -17,7 +17,7 @@ export default async function ChatLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const url = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/channel`
+  const url = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/v1/channel`
   const channels: Channel[] = await axios.get(url).then((res) => res.data)
 
   if (channels && channels?.length === 0) {
