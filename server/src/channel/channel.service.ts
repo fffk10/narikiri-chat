@@ -1,7 +1,12 @@
 import { PrismaService } from '@/prisma/prisma.service'
 import { Injectable } from '@nestjs/common'
 
-import { Channel, ChannelType, MemberRole } from '@prisma/client'
+import {
+  Channel,
+  ChannelMessage,
+  ChannelType,
+  MemberRole,
+} from '@prisma/client'
 
 @Injectable()
 export class ChannelService {
@@ -12,7 +17,7 @@ export class ChannelService {
    * @param where 検索条件
    * @returns {Promise<Channel | null>} チャンネル
    */
-  async channel(id: string): Promise<Channel | null> {
+  async getChannelById(id: string): Promise<Channel | null> {
     return this.prisma.channel.findUnique({ where: { id } })
   }
 
@@ -20,7 +25,7 @@ export class ChannelService {
    * 全体取得
    * @returns {Promise<Channel[]>} チャンネル一覧
    */
-  async channels(): Promise<Channel[]> {
+  async getChannels(): Promise<Channel[]> {
     return this.prisma.channel.findMany()
   }
 
@@ -53,5 +58,17 @@ export class ChannelService {
     })
 
     return response
+  }
+
+  async getMessages(channelId: string): Promise<ChannelMessage[]> {
+    return this.prisma.channelMessage.findMany({
+      where: {
+        channelId,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      take: 50,
+    })
   }
 }
