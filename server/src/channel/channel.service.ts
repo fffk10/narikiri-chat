@@ -66,7 +66,7 @@ export class ChannelService {
         channelId,
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: 'asc',
       },
       take: 50,
     })
