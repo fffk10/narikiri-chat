@@ -3,8 +3,6 @@ import axios from 'axios'
 import { Metadata } from 'next'
 
 import ChatSidebar from '@/components/chat/chat-sidebar'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
 import ChannelEmpty from '@/components/chat/channel-empty'
 
 export const metadata: Metadata = {
