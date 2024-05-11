@@ -60,6 +60,11 @@ export class ChannelService {
     return response
   }
 
+  /**
+   * チャンネルメッセージ取得
+   * @param channelId 取得対象のチャンネルID
+   * @returns チャンネルのメッセージ履歴
+   */
   async getMessages(channelId: string): Promise<ChannelMessage[]> {
     return this.prisma.channelMessage.findMany({
       where: {
@@ -67,6 +72,9 @@ export class ChannelService {
       },
       orderBy: {
         createdAt: 'asc',
+      },
+      include: {
+        sender: true,
       },
       take: 50,
     })

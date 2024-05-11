@@ -1,7 +1,8 @@
-import { Channel, ChannelMessage } from '@prisma/client'
+import { Channel } from '@prisma/client'
 import axios from 'axios'
 
 import Image from 'next/image'
+import { ChannelMessageResponse } from '@/types/channel-types'
 
 export default async function ChannelPage({
   params,
@@ -15,13 +16,14 @@ export default async function ChannelPage({
     return <div>Channel not found</div>
   }
 
-  const fetchChannelMessages = async (): Promise<ChannelMessage[]> => {
+  const fetchChannelMessages = async (): Promise<ChannelMessageResponse[]> => {
     const url = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/v1/channel/${params.channelId}/message`
     const response = await axios.get(url).then((res) => res.data)
     return response
   }
 
   const channelMessages = await fetchChannelMessages()
+  console.log(channelMessages)
 
   return (
     <div className='flex flex-col flex-1'>
@@ -40,7 +42,7 @@ export default async function ChannelPage({
             >
               <div className='min-w-[40px]'>
                 <Image
-                  src='https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yZnFCYWo5SHB2V1VTWG53TmpTa3BNUnFMbmQifQ'
+                  src={message.sender.imageUrl || '/user.svg'}
                   alt='user image'
                   width={40}
                   height={40}
@@ -48,10 +50,8 @@ export default async function ChannelPage({
                 />
               </div>
               <div className='ml-2'>
-                <p className='mb-1'>藤原啓珠</p>
-                <p className='ml-1 '>
-                  非常に長い文章を生成してくださいあああああああああああああああaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaああああああああああああああああああああああああああああああ
-                </p>
+                <p className='mb-1'>{message.sender.name}</p>
+                <p className='ml-1 '>{message.content}</p>
               </div>
             </div>
           ))}
