@@ -6,13 +6,24 @@ Narikiri Chat
 
 ## Tech
 
-- FE(Next.js/14 App Router)
+- client(Next.js/14 App Router)
 
   - TypeScript
   - shadcn/ui
   - storybook
 
-- BE(NestJS)
+- backend(NestJS)
   - TypeScript
   - prisma
   - postgresSQL
+
+## packages
+
+- packages/client
+フロントエンド用ワークスペース
+
+- packages/server
+バックエンド用ワークスペース
+
+- packages/database
+prisma型定義をフロント/バックで共有するためのワークスペース
