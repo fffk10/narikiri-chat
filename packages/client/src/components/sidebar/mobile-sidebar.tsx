@@ -1,33 +1,26 @@
 'use client'
 
-import { SignedOut, SignInButton, SignedIn, UserButton } from '@clerk/nextjs'
-import { Home, MessageCircleMore, Search, Settings2 } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-
+import { SIDEBAR_ITEMS } from '@/components/sidebar/sidebar'
 import SidebarItem from '@/components/sidebar/sidebar-item'
 import { ModeToggle } from '@/components/theme/mode-toggle'
+import { useSidebar } from '@/hooks/use-sidebar-store'
+import { SignedOut, SignInButton, SignedIn, UserButton } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 
-export type SidebarItem = {
-  link: '' | 'chat' | 'search' | 'settings'
-  icon: React.ReactNode
-}
-
-export const SIDEBAR_ITEMS: SidebarItem[] = [
-  { link: '', icon: <Home /> },
-  { link: 'chat', icon: <MessageCircleMore /> },
-  { link: 'search', icon: <Search /> },
-  { link: 'settings', icon: <Settings2 /> },
-]
-
-export default function Sidebar() {
+export default function MobileSidebar() {
   const router = useRouter()
+  const { isOpen } = useSidebar()
 
   const onClick = (kind: string) => {
     router.push(`/${kind}`)
   }
 
+  if (!isOpen) {
+    return null
+  }
+
   return (
-    <aside className='hidden p-4 md:flex flex-1 flex-col shadow-md'>
+    <aside className='md:hidden flex p-4 flex-1 flex-col shadow-md'>
       <nav className='flex flex-col flex-1'>
         <ul className='mx-auto'>
           {SIDEBAR_ITEMS.map((item) => (

@@ -4,6 +4,7 @@ import Footer from '@/components/layout/footer'
 import Header from '@/components/layout/header'
 import Main from '@/components/layout/main'
 import Sidebar from '@/components/sidebar/sidebar'
+import MobileSidebar from '@/components/sidebar/mobile-sidebar'
 
 export const metadata: Metadata = {
   title: 'Narikiri Chat',
@@ -20,6 +21,8 @@ export default function MainLayout({
       <Header />
       <div className='flex flex-1 overflow-y-auto'>
         <Sidebar />
+        <MobileSidebar />
+
         <Main>{children}</Main>
       </div>
       <Footer />
