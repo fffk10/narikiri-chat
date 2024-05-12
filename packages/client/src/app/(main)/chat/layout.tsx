@@ -2,8 +2,8 @@ import { Channel } from '@prisma/client'
 import axios from 'axios'
 import { Metadata } from 'next'
 
-import ChatSidebar from '@/components/chat/chat-sidebar'
 import ChannelEmpty from '@/components/chat/channel-empty'
+import ChannelList from '@/components/chat/channel-list'
 
 export const metadata: Metadata = {
   title: 'Chat',
@@ -24,7 +24,7 @@ export default async function ChatLayout({
 
   return (
     <div className='flex-1 flex h-full'>
-      <ChatSidebar channels={channels} />
+      <ChannelList channels={channels} />
       {children}
     </div>
   )

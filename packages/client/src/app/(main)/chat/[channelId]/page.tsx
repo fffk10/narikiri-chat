@@ -1,8 +1,8 @@
 import { Channel } from '@prisma/client'
 import axios from 'axios'
 
-import Image from 'next/image'
 import { ChannelMessageResponse } from '@/types/channel-types'
+import ChatRoom from '@/components/chat/chat-room'
 
 export default async function ChannelPage({
   params,
@@ -24,41 +24,5 @@ export default async function ChannelPage({
 
   const channelMessages = await fetchChannelMessages()
 
-  return (
-    <div className='flex flex-col flex-1 p-2'>
-      <div className='p-2 flex justify-between'>
-        <p className='text-xl'>{channel.name}</p>
-        <div>buttons</div>
-      </div>
-
-      {channelMessages && channelMessages?.length === 0 ? (
-        <div className='m-auto'>
-          会話履歴がありません。さぁ会話を始めましょう！
-        </div>
-      ) : (
-        <div className='p-2 overflow-hidden overflow-y-auto'>
-          {channelMessages.map((message) => (
-            <div
-              key={message.id}
-              className='text-sm p-2 border-b border-gray-200 flex'
-            >
-              <div className='min-w-[40px]'>
-                <Image
-                  src={message.sender.imageUrl || '/user.svg'}
-                  alt='user image'
-                  width={40}
-                  height={40}
-                  className='rounded-full border'
-                />
-              </div>
-              <div className='ml-2'>
-                <p className='mb-1'>{message.sender.name}</p>
-                <p className='ml-1 '>{message.content}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  )
+  return <ChatRoom channel={channel} channelMessages={channelMessages} />
 }
