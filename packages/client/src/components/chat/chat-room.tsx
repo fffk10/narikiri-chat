@@ -1,10 +1,11 @@
 'use client'
 
+import ChatMessage from '@/components/chat/chat-message'
 import { ChannelMessageResponse } from '@/types/channel-types'
 import { Channel } from '@prisma/client'
 import { ChevronLeft } from 'lucide-react'
 import Image from 'next/image'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 type ChatRoomProps = {
   channel: Channel
@@ -23,7 +24,7 @@ export default function ChatRoom({ channel, channelMessages }: ChatRoomProps) {
   }
 
   return (
-    <div className='flex flex-col flex-1 p-2'>
+    <div className='relative flex flex-col flex-1 p-2'>
       <div className='p-2 flex justify-between'>
         <div className='flex'>
           <button
@@ -39,25 +40,12 @@ export default function ChatRoom({ channel, channelMessages }: ChatRoomProps) {
 
       <div className='p-2 overflow-hidden overflow-y-auto'>
         {channelMessages.map((message) => (
-          <div
-            key={message.id}
-            className='text-sm p-2 border-b border-gray-200 flex'
-          >
-            <div className='min-w-[40px]'>
-              <Image
-                src={message.sender.imageUrl || '/user.svg'}
-                alt='user image'
-                width={40}
-                height={40}
-                className='rounded-full border'
-              />
-            </div>
-            <div className='ml-2'>
-              <p className='mb-1'>{message.sender.name}</p>
-              <p className='ml-1 '>{message.content}</p>
-            </div>
-          </div>
+          <ChatMessage key={message.id} message={message} />
         ))}
+      </div>
+
+      <div className='absolute bottom-[20px] left-0 w-full bg-gray-400'>
+        inputyou
       </div>
     </div>
   )
