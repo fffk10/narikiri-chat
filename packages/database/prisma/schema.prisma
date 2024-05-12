@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+enum MemberRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+enum ChannelType {
+  PUBLIC
+  PRIVATE
+}
+
+model User {
+  id       String @id
+  name     String
+  imageUrl String @db.Text()
+  email    String @db.Text()
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ChannelMember  ChannelMember[]
+  ChannelMessage ChannelMessage[]
+}
+
+model Channel {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  ChannelMember  ChannelMember[]
+  ChannelDetail  ChannelDetail[]
+  ChannelMessage ChannelMessage[]
+}
+
+model ChannelMember {
+  channelId String
+  channel   Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  memberId String
+  member   User   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  role MemberRole @default(MEMBER)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([channelId, memberId])
+}
+
+model ChannelDetail {
+  id String @id @default(cuid())
+
+  chennelId String
+  chennel   Channel @relation(fields: [chennelId], references: [id], onDelete: Cascade)
+
+  type ChannelType @default(PUBLIC)
+
+  updatedAt DateTime @updatedAt
+}
+
+model ChannelMessage {
+  id String @id @default(cuid())
+
+  channelId String
+  channel   Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  senderId String
+  sender   User   @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  content String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

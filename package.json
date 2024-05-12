@@ -12,5 +12,12 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "5.13.0"
+  },
+  "devDependencies": {
+    "database": "0.0.2",
+    "prisma": "^5.13.0"
+  }
 }
