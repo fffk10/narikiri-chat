@@ -2,8 +2,9 @@
   "name": "narikiri-chat",
   "version": "1.0.0",
   "workspaces": [
-    "client",
-    "server"
+    "packages/client",
+    "packages/server",
+    "packages/db"
   ],
   "scripts": {
     "frontend": "pnpm -F \"frontend\"",
