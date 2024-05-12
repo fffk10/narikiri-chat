@@ -8,7 +8,7 @@ importers:
 
   .: {}
 
-  client:
+  packages/client:
     dependencies:
       '@clerk/nextjs':
         specifier: ^5.0.3
@@ -156,7 +156,7 @@ importers:
         specifier: ^5
         version: 5.4.5
 
-  server:
+  packages/server:
     dependencies:
       '@nestjs/common':
         specifier: ^10.0.0
