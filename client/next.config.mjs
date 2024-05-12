@@ -7,7 +7,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: '*', // Set your origin
+            value: '*',
           },
           {
             key: 'Access-Control-Allow-Methods',
@@ -22,7 +22,26 @@ const nextConfig = {
     ]
   },
   images: {
-    domains: ['uploadthing.com', 'utfs.io', 'img.clerk.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'uploadthing.com',
+        port: '',
+        pathname: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'utfs.io',
+        port: '',
+        pathname: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.clerk.com',
+        port: '',
+        pathname: '',
+      },
+    ],
   },
 }
 
