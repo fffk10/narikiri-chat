@@ -1,6 +1,6 @@
 'use client'
 
-import ChatSidebarItems from '@/components/chat/chat-sidebar-items'
+import ChannelListItem from '@/components/chat/channel-list-item'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { useModal } from '@/hooks/use-modal-store'
 import { Channel } from '@prisma/client'
@@ -28,7 +28,7 @@ export default function ChannelList({ channels }: ChannelListProps) {
         <ScrollArea>
           <ul>
             {channels?.map((channel) => (
-              <ChatSidebarItems
+              <ChannelListItem
                 key={channel.id}
                 channel={channel}
                 onClick={() => router.push(`/chat/${channel.id}`)}
@@ -49,7 +49,7 @@ export default function ChannelList({ channels }: ChannelListProps) {
       <ScrollArea>
         <ul>
           {channels?.map((channel) => (
-            <ChatSidebarItems
+            <ChannelListItem
               key={channel.id}
               channel={channel}
               onClick={() => router.push(`/chat/${channel.id}`)}

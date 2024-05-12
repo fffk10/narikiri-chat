@@ -1,14 +1,11 @@
 import { Channel } from '@prisma/client'
 
-type ChatSidebarItems = {
+type ChannelListItem = {
   channel: Channel
   onClick: () => void
 }
 
-export default function ChatSidebarItems({
-  channel,
-  onClick,
-}: ChatSidebarItems) {
+export default function ChannelListItem({ channel, onClick }: ChannelListItem) {
   return (
     <li key={channel.id} className='mb-2'>
       <button onClick={onClick} className='text-left text-sm w-full'>
