@@ -1,10 +1,11 @@
 'use client'
 
+import ChatInput from '@/components/chat/chat-input'
 import ChatMessage from '@/components/chat/chat-message'
+import { Textarea } from '@/components/ui/textarea'
 import { ChannelMessageResponse } from '@/types/channel-types'
 import { Channel } from '@prisma/client'
-import { ChevronLeft } from 'lucide-react'
-import Image from 'next/image'
+import { ChevronLeft, Send } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 type ChatRoomProps = {
@@ -44,8 +45,8 @@ export default function ChatRoom({ channel, channelMessages }: ChatRoomProps) {
         ))}
       </div>
 
-      <div className='absolute bottom-[20px] left-0 w-full bg-gray-400'>
-        inputyou
+      <div className='absolute bottom-[20px] left-0 w-full p-2'>
+        <ChatInput />
       </div>
     </div>
   )
