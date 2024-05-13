@@ -1,6 +1,7 @@
-import { ChannelService } from '@/channel/channel.service'
 import { Body, Controller, Get, Param, Post } from '@nestjs/common'
 import { Channel, ChannelMessage } from '@prisma/client'
+
+import { ChannelService } from '@/channel/channel.service'
 
 @Controller('v1/channel')
 export class ChannelController {
