@@ -1,13 +1,14 @@
 import { HttpAdapterHost, NestFactory } from '@nestjs/core'
-import { AppModule } from './app.module'
 import { PrismaClientExceptionFilter } from 'nestjs-prisma'
+
+import { AppModule } from './app.module'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   // CORS有効化
   app.enableCors()
 
-  // Prismaエラーハンドリング
+  // Prismaエラーハンドリング用
   const { httpAdapter } = app.get(HttpAdapterHost)
   app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter))
 
