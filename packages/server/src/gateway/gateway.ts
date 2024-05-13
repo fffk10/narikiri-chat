@@ -5,6 +5,7 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets'
+import { ChannelMessage } from '@prisma/client'
 import { Server } from 'socket.io'
 
 @WebSocketGateway({
@@ -23,11 +24,22 @@ export class Gateway implements OnModuleInit {
   }
 
   @SubscribeMessage('newMessage')
-  handleEvent(@MessageBody() data: any) {
+  onNewMessage(@MessageBody() data: ChannelMessage) {
+    console.log('new message')
     console.log(data)
     this.server.emit('onMessage', {
-      msg: 'new message',
-      content: data,
+      id: '1',
+      channelId: data.channelId,
+      senderId: data.senderId,
+      content: data.content,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      sender: {
+        id: 'user_2fqBafA7z1x2057p6pjM50Z76kp',
+        name: '啓珠 藤原',
+        imageUrl:
+          'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yZnFCYWo5SHB2V1VTWG53TmpTa3BNUnFMbmQifQ',
+      },
     })
   }
 }

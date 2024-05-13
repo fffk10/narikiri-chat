@@ -7,6 +7,10 @@ import type { Metadata } from 'next'
 import { ModalProvider } from '@/components/providers/modal-provider'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { cn } from '@/lib/utils'
+import {
+  WebSocketProvider,
+  socket,
+} from '@/components/providers/socket-context-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,15 +28,17 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang='ja' suppressHydrationWarning={true}>
         <body className={cn([inter.className, 'flex flex-col h-screen'])}>
-          <ThemeProvider
-            attribute='class'
-            defaultTheme='system'
-            enableSystem
-            disableTransitionOnChange
-          >
-            <ModalProvider />
-            {children}
-          </ThemeProvider>
+          <WebSocketProvider>
+            <ThemeProvider
+              attribute='class'
+              defaultTheme='system'
+              enableSystem
+              disableTransitionOnChange
+            >
+              <ModalProvider />
+              {children}
+            </ThemeProvider>
+          </WebSocketProvider>
         </body>
       </html>
     </ClerkProvider>
