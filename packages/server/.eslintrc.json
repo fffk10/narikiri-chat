@@ -1,6 +1,16 @@
 {
-  "extends": "next/core-web-vitals",
-  "plugins": ["unused-imports"],
+  "root": true,
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parseroptions": {
+    "project": "./tsconfig.json",
+    "sourcetype": "module"
+  },
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+  "plugins": ["import", "sort-keys-fix", "typescript-sort-keys", "unused-imports"],
   "rules": {
     "import/order": [
       "error",
@@ -9,7 +19,8 @@
           "builtin",
           "external",
           "internal",
-          ["parent", "sibling"],
+          "parent",
+          "sibling",
           "index",
           "object",
           "type"
@@ -20,6 +31,9 @@
         }
       }
     ],
+    "import/no-duplicates": "error",
+    "sort-keys-fix/sort-keys-fix": "error",
+    "typescript-sort-keys/interface": "error",
     "unused-imports/no-unused-imports": "error"
   }
 }
