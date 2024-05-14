@@ -2,6 +2,7 @@
 
 import ChatMessage from '@/components/chat/chat-message'
 import { WebSocketContext } from '@/components/providers/socket-context-provider'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { Textarea } from '@/components/ui/textarea'
 import { ChannelMessageResponse } from '@/types/channel-types'
 import { useUser } from '@clerk/nextjs'
@@ -71,13 +72,13 @@ export default function ChatRoom({
         <div>buttons</div>
       </div>
 
-      <div className='p-2 overflow-hidden overflow-y-auto'>
+      <ScrollArea className='p-2 flex-1 overflow-hidden overflow-y-auto'>
         {messages.map((message) => (
           <ChatMessage key={message.id} message={message} />
         ))}
-      </div>
+      </ScrollArea>
 
-      <div className='absolute bottom-[20px] left-0 w-full p-2'>
+      <div className='w-full p-2'>
         <div className='flex border rounded-md w-full justify-between'>
           <Textarea
             className='flex-1'
