@@ -8,12 +8,16 @@ import {
 import { ChannelMessage } from '@prisma/client'
 import { Server } from 'socket.io'
 
+import { MessageService } from '@/message/message.service'
+
 @WebSocketGateway({
   cors: {
     origin: '*',
   },
 })
 export class Gateway implements OnModuleInit {
+  constructor(private readonly messageService: MessageService) {}
+
   @WebSocketServer()
   server: Server
 
@@ -24,22 +28,18 @@ export class Gateway implements OnModuleInit {
   }
 
   @SubscribeMessage('newMessage')
-  onNewMessage(@MessageBody() data: ChannelMessage) {
-    console.log('new message')
-    console.log(data)
-    this.server.emit('onMessage', {
-      id: '1',
+  async onNewMessage(@MessageBody() data: ChannelMessage) {
+    console.log('message requested')
+    // console.log(data)
+
+    const response = await this.messageService.postMessage({
       channelId: data.channelId,
       senderId: data.senderId,
       content: data.content,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      sender: {
-        id: 'user_2fqBafA7z1x2057p6pjM50Z76kp',
-        name: '啓珠 藤原',
-        imageUrl:
-          'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yZnFCYWo5SHB2V1VTWG53TmpTa3BNUnFMbmQifQ',
-      },
     })
+
+    console.log(response)
+
+    this.server.emit('onMessage', response)
   }
 }

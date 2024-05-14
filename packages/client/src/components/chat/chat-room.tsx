@@ -23,7 +23,6 @@ export default function ChatRoom({
   const { user } = useUser()
   const socket = useContext(WebSocketContext)
   const [messages, setMessages] = useState(initialMessages)
-  console.log(messages)
 
   const [inputValue, setInputValue] = useState('')
 
@@ -55,8 +54,6 @@ export default function ChatRoom({
       senderId: user?.id,
       content: inputValue,
     })
-
-    console.log('send')
   }
 
   return (

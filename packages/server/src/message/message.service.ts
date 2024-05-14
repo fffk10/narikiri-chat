@@ -13,6 +13,9 @@ export class MessageService {
         senderId: data.senderId,
         content: data.content,
       },
+      include: {
+        sender: true,
+      },
     })
   }
 }
