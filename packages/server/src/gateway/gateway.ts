@@ -28,7 +28,7 @@ export class Gateway implements OnModuleInit {
   }
 
   @SubscribeMessage('newMessage')
-  async onNewMessage(@MessageBody() data: ChannelMessage) {
+  async onNewMessage(@MessageBody() data: ChannelMessagePostRequest) {
     console.log('message requested')
     // console.log(data)
 
