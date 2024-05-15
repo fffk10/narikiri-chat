@@ -43,9 +43,8 @@ export default function ChatRoom({
     })
 
     return () => {
-      socket.off('connect')
       socket.off('onMessage')
-      // socket.disconnect()
+      socket.disconnect()
     }
   }, [])
 
