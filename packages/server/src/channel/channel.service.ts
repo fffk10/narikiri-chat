@@ -25,8 +25,17 @@ export class ChannelService {
    * 全体取得
    * @returns {Promise<Channel[]>} チャンネル一覧
    */
-  async getChannels(): Promise<Channel[]> {
-    return this.prisma.channel.findMany()
+  async getChannels(userId: string): Promise<Channel[]> {
+    const response = await this.prisma.channel.findMany({
+      where: {
+        ChannelMember: {
+          some: {
+            memberId: userId,
+          },
+        },
+      },
+    })
+    return response
   }
 
   /**
@@ -42,7 +51,9 @@ export class ChannelService {
   }): Promise<Channel> {
     let response = await this.prisma.channel.create({
       data: {
-        ...data,
+        name: data.name,
+        description: data.description,
+        imageUrl: data.imageUrl,
         ChannelMember: {
           create: {
             memberId: data.ownerId,

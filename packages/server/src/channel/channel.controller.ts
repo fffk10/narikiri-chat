@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common'
 import { Channel, ChannelMessage } from '@prisma/client'
 
 import { ChannelService } from '@/channel/channel.service'
@@ -13,8 +13,8 @@ export class ChannelController {
   }
 
   @Get()
-  async channels(): Promise<Channel[]> {
-    return this.channelService.getChannels()
+  async channels(@Query('userId') userId: string): Promise<Channel[]> {
+    return this.channelService.getChannels(userId)
   }
 
   @Post()
