@@ -9,7 +9,10 @@ type ChatMessageProps = {
 
 export default function ChatMessage({ message }: ChatMessageProps) {
   return (
-    <div key={message.id} className='text-sm p-2 border-b border-gray-200 flex'>
+    <div
+      key={message.id}
+      className='text-sm p-2 border-b border-gray-200 flex dark:hover:bg-gray-800 hover:bg-gray-100'
+    >
       <div className='min-w-[40px]'>
         <Image
           src={message.sender.imageUrl || '/user.svg'}
