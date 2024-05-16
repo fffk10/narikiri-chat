@@ -28,14 +28,6 @@ export default function ChatRoom({
   const [isComposing, setIsComposing] = useState<boolean>(false)
   const chatEndRef = useRef<HTMLDivElement | null>(null)
 
-  if (messages && messages?.length === 0) {
-    return (
-      <div className='m-auto'>
-        会話履歴がありません。さぁ会話を始めましょう！
-      </div>
-    )
-  }
-
   // チャット受信用socket通信の設定
   useEffect(() => {
     socket.on('onMessage', (data: ChannelMessageResponse) => {
@@ -59,6 +51,7 @@ export default function ChatRoom({
   const handleSend = async () => {
     if (!inputValue) return
 
+    console.log('send message')
     socket.emit('newMessage', {
       channelId: channel.id,
       senderId: user?.id,
@@ -89,12 +82,18 @@ export default function ChatRoom({
         <div>buttons</div>
       </div>
 
-      <ScrollArea className='p-2 flex-1 overflow-hidden overflow-y-auto'>
-        {messages.map((message) => (
-          <ChatMessage key={message.id} message={message} />
-        ))}
-        <div ref={chatEndRef} />
-      </ScrollArea>
+      {messages && messages?.length === 0 ? (
+        <div className='m-auto'>
+          会話履歴がありません。さぁ会話を始めましょう！
+        </div>
+      ) : (
+        <ScrollArea className='p-2 flex-1 overflow-hidden overflow-y-auto'>
+          {messages.map((message) => (
+            <ChatMessage key={message.id} message={message} />
+          ))}
+          <div ref={chatEndRef} />
+        </ScrollArea>
+      )}
 
       <div className='w-full p-2'>
         <div className='flex border rounded-md w-full justify-between'>
