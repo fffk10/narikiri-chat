@@ -18,7 +18,12 @@ export class ChannelService {
    * @returns {Promise<Channel | null>} チャンネル
    */
   async getChannelById(id: string): Promise<Channel | null> {
-    return this.prisma.channel.findUnique({ where: { id } })
+    return this.prisma.channel.findUnique({
+      where: { id },
+      include: {
+        ChannelMember: true,
+      },
+    })
   }
 
   /**
