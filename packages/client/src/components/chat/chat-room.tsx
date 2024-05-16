@@ -4,15 +4,14 @@ import ChatMessage from '@/components/chat/chat-message'
 import { WebSocketContext } from '@/components/providers/socket-context-provider'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Textarea } from '@/components/ui/textarea'
-import { ChannelMessageResponse } from '@/types/channel-types'
+import { ChannelMessageResponse, ChannelResponse } from '@/types/channel-types'
 import { useUser } from '@clerk/nextjs'
-import { Channel } from '@prisma/client'
 import { ChevronLeft, Send } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useContext, useEffect, useRef, useState } from 'react'
 
 type ChatRoomProps = {
-  channel: Channel
+  channel: ChannelResponse
   channelMessages: ChannelMessageResponse[]
 }
 
@@ -77,7 +76,9 @@ export default function ChatRoom({
           >
             <ChevronLeft />
           </button>
-          <p className='text-xl truncate'>{channel.name}</p>
+          <p className='text-xl truncate'>
+            {channel.name} ({channel.ChannelMember.length})
+          </p>
         </div>
         <div>buttons</div>
       </div>
