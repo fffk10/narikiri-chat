@@ -26,6 +26,7 @@ export class Gateway implements OnModuleInit, OnModuleDestroy {
       console.log('Client connected')
     })
   }
+
   onModuleDestroy() {
     throw new Error('Method not implemented.')
   }

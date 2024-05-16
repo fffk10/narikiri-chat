@@ -4,9 +4,10 @@ import ChatMessage from '@/components/chat/chat-message'
 import { WebSocketContext } from '@/components/providers/socket-context-provider'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Textarea } from '@/components/ui/textarea'
+import CommonTooltip from '@/components/utils/common-tooltip'
 import { ChannelMessageResponse, ChannelResponse } from '@/types/channel-types'
 import { useUser } from '@clerk/nextjs'
-import { ChevronLeft, Send } from 'lucide-react'
+import { ChevronLeft, CircleHelp, Send, Users } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useContext, useEffect, useRef, useState } from 'react'
 
@@ -24,18 +25,20 @@ export default function ChatRoom({
   const socket = useContext(WebSocketContext)
   const [messages, setMessages] = useState(initialMessages)
   const [inputValue, setInputValue] = useState('')
-  const [isComposing, setIsComposing] = useState<boolean>(false)
+  const [isComposing, setIsComposing] = useState(false)
   const chatEndRef = useRef<HTMLDivElement | null>(null)
+  const [openMembers, setOpenMembers] = useState(false)
 
   // チャット受信用socket通信の設定
   useEffect(() => {
     socket.on('onMessage', (data: ChannelMessageResponse) => {
       setMessages((prev) => [...prev, data])
     })
+    console.log(socket)
 
     return () => {
+      console.log('disconnect socket')
       socket.off('onMessage')
-      socket.disconnect()
     }
   }, [])
 
@@ -80,21 +83,31 @@ export default function ChatRoom({
             {channel.name} ({channel.ChannelMember.length})
           </p>
         </div>
-        <div>buttons</div>
+        <div className='flex gap-2'>
+          <CommonTooltip contentText='member'>
+            <Users onClick={() => setOpenMembers((prev) => !prev)} />
+          </CommonTooltip>
+
+          <CommonTooltip contentText='help'>
+            <CircleHelp onClick={() => console.log('help click')} />
+          </CommonTooltip>
+        </div>
       </div>
 
-      {messages && messages?.length === 0 ? (
-        <div className='m-auto'>
-          会話履歴がありません。さぁ会話を始めましょう！
-        </div>
-      ) : (
-        <ScrollArea className='p-2 flex-1 overflow-hidden overflow-y-auto'>
-          {messages.map((message) => (
-            <ChatMessage key={message.id} message={message} />
-          ))}
-          <div ref={chatEndRef} />
-        </ScrollArea>
-      )}
+      <div className='flex-1 p-2 overflow-hidden overflow-y-auto'>
+        {messages && messages?.length === 0 ? (
+          <div className='h-full flex justify-center items-center'>
+            会話履歴がありません。さぁ会話を始めましょう！
+          </div>
+        ) : (
+          <ScrollArea>
+            {messages.map((message) => (
+              <ChatMessage key={message.id} message={message} />
+            ))}
+            <div ref={chatEndRef} />
+          </ScrollArea>
+        )}
+      </div>
 
       <div className='w-full p-2'>
         <div className='flex border rounded-md w-full justify-between'>

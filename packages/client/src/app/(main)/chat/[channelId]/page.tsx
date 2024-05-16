@@ -14,8 +14,6 @@ export default async function ChannelPage({
     .then((res) => res.data)
     .catch(() => null)
 
-  console.log(channel)
-
   if (!channel) {
     return <div>Channel not found</div>
   }
