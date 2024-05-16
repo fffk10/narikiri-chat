@@ -1,4 +1,4 @@
-import { OnModuleInit } from '@nestjs/common'
+import { OnModuleDestroy, OnModuleInit } from '@nestjs/common'
 import {
   MessageBody,
   SubscribeMessage,
@@ -15,7 +15,7 @@ import { MessageService } from '@/message/message.service'
     origin: '*',
   },
 })
-export class Gateway implements OnModuleInit {
+export class Gateway implements OnModuleInit, OnModuleDestroy {
   constructor(private readonly messageService: MessageService) {}
 
   @WebSocketServer()
@@ -25,6 +25,9 @@ export class Gateway implements OnModuleInit {
     this.server.on('connection', (socket) => {
       console.log('Client connected')
     })
+  }
+  onModuleDestroy() {
+    throw new Error('Method not implemented.')
   }
 
   @SubscribeMessage('newMessage')
