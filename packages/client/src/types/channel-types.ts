@@ -1,3 +1,4 @@
+import { Channel, MemberRole } from '@prisma/client'
 export interface ChannelMessageResponse {
   id: string
   channelId: string
@@ -10,4 +11,12 @@ export interface ChannelMessageResponse {
     name: string
     imageUrl?: string
   }
+}
+
+export interface ChannelResponse extends Channel {
+  ChannelMember: {
+    channelId: string
+    memberId: string
+    role: MemberRole
+  }[]
 }
