@@ -5,7 +5,6 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets'
-import { ChannelMessage } from '@prisma/client'
 import { Server } from 'socket.io'
 
 import { MessageService } from '@/message/message.service'
