@@ -7,10 +7,7 @@ import type { Metadata } from 'next'
 import { ModalProvider } from '@/components/providers/modal-provider'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { cn } from '@/lib/utils'
-import {
-  WebSocketProvider,
-  socket,
-} from '@/components/providers/socket-context-provider'
+import { WebSocketProvider } from '@/components/providers/socket-context-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
