@@ -11,10 +11,10 @@ async function bootstrap() {
 
   // OpenAPI
   const config = new DocumentBuilder()
-    .setTitle('title')
-    .setDescription('Swagger UI の説明文')
+    .setTitle('チャットAPI')
+    .setDescription('Nariki Chat App API')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('channel')
     .build()
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api', app, document)
