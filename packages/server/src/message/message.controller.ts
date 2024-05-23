@@ -1,7 +1,7 @@
 import { Controller, Post, Body } from '@nestjs/common'
 
 import { MessageService } from '@/message/message.service'
-import { ApiOperation, ApiTags } from '@nestjs/swagger'
+import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
 
 @Controller('v1/message')
 @ApiTags('/message')
