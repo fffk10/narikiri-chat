@@ -14,7 +14,6 @@ async function bootstrap() {
     .setTitle('チャットAPI')
     .setDescription('Nariki Chat App API')
     .setVersion('1.0')
-    .addTag('channel')
     .build()
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api', app, document)
