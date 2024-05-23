@@ -1,7 +1,6 @@
 import { MemberService } from '@/member/member.service'
 import { Controller, Get, Param } from '@nestjs/common'
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
-import { channel } from 'diagnostics_channel'
 
 @Controller('v1/member')
 @ApiTags('/member')
