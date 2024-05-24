@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common'
 import { Channel, ChannelMessage } from '@prisma/client'
 
 import { ChannelService } from '@/channel/channel.service'
-import { ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger'
+import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
 @Controller('v1/channel')
 @ApiTags('/channel')
