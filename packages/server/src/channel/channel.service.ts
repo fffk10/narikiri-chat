@@ -5,7 +5,6 @@ import {
   ChannelType,
   MemberRole,
 } from '@prisma/client'
-
 import { PrismaService } from '@/prisma/prisma.service'
 
 @Injectable()
