@@ -29,7 +29,6 @@ export class MemberController {
   @Post()
   @ApiOperation({ summary: 'チャンネルにメンバーを追加' })
   @ApiBody({
-    description: 'チャンネルにメンバーを追加する',
     type: RegisterMemberDto,
   })
   async registerMember(@Body() registerMemberRequest: RegisterMemberDto) {
