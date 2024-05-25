@@ -10,6 +10,6 @@ export class RegisterMemberDto
   @ApiProperty({ description: 'ユーザーのID' })
   memberId: string
 
-  @ApiProperty({ description: 'ユーザーの役割' })
+  @ApiProperty({ description: 'メンバーの権限' })
   role: MemberRole
 }
