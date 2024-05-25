@@ -1,6 +1,14 @@
+import { RegisterMemberDto } from '@/member/dto/member.dto'
 import { MemberService } from '@/member/member.service'
-import { Controller, Get, Param } from '@nestjs/common'
-import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
+import { Body, Controller, Get, Param, Post } from '@nestjs/common'
+import {
+  ApiBody,
+  ApiOperation,
+  ApiParam,
+  ApiProduces,
+  ApiTags,
+} from '@nestjs/swagger'
+import { channel } from 'diagnostics_channel'
 
 @Controller('v1/member')
 @ApiTags('/member')
@@ -16,5 +24,16 @@ export class MemberController {
   })
   async getMembers(@Param('channelId') channelId: string) {
     return this.memberService.getMembers(channelId)
+  }
+
+  @Post()
+  @ApiOperation({ summary: 'チャンネルにメンバーを追加' })
+  @ApiBody({
+    description: 'チャンネルにメンバーを追加する',
+    type: RegisterMemberDto,
+  })
+  async registerMember(@Body() registerMemberRequest: RegisterMemberDto) {
+    console.log(registerMemberRequest)
+    return this.memberService.registerMember(registerMemberRequest)
   }
 }

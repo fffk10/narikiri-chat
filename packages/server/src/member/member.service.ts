@@ -1,3 +1,4 @@
+import { RegisterMemberDto } from '@/member/dto/member.dto'
 import { PrismaService } from '@/prisma/prisma.service'
 import { Injectable } from '@nestjs/common'
 
@@ -9,6 +10,17 @@ export class MemberService {
     return this.prisma.channelMember.findMany({
       where: {
         channelId,
+      },
+    })
+  }
+
+  async registerMember(registerMemberRequest: RegisterMemberDto) {
+    const { channelId, memberId, role } = registerMemberRequest
+    return this.prisma.channelMember.create({
+      data: {
+        channelId,
+        memberId,
+        role: role || 'MEMBER',
       },
     })
   }
