@@ -1,14 +1,7 @@
-import { RegisterMemberDto } from '@/member/dto/member.dto'
+import { UpsertMemberDto } from '@/member/dto/member.dto'
 import { MemberService } from '@/member/member.service'
-import { Body, Controller, Get, Param, Post } from '@nestjs/common'
-import {
-  ApiBody,
-  ApiOperation,
-  ApiParam,
-  ApiProduces,
-  ApiTags,
-} from '@nestjs/swagger'
-import { channel } from 'diagnostics_channel'
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common'
+import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
 
 @Controller('v1/member')
 @ApiTags('/member')
@@ -29,10 +22,18 @@ export class MemberController {
   @Post()
   @ApiOperation({ summary: 'チャンネルにメンバーを追加' })
   @ApiBody({
-    type: RegisterMemberDto,
+    type: UpsertMemberDto,
   })
-  async registerMember(@Body() registerMemberRequest: RegisterMemberDto) {
-    console.log(registerMemberRequest)
+  async registerMember(@Body() registerMemberRequest: UpsertMemberDto) {
     return this.memberService.registerMember(registerMemberRequest)
+  }
+
+  @Patch()
+  @ApiOperation({ summary: 'チャンネルのメンバーの権限を更新' })
+  @ApiBody({
+    type: UpsertMemberDto,
+  })
+  async updateMemberRole(@Body() updateMemberRoleRequest: UpsertMemberDto) {
+    return this.memberService.updateMemberRole(updateMemberRoleRequest)
   }
 }

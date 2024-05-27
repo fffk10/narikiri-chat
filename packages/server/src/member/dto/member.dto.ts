@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { ChannelMember, MemberRole } from '@prisma/client'
 
-export class RegisterMemberDto
+export class UpsertMemberDto
   implements Omit<ChannelMember, 'createdAt' | 'updatedAt'>
 {
   @ApiProperty({ description: 'チャンネルのID' })
