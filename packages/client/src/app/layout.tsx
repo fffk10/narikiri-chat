@@ -1,7 +1,7 @@
 import { ClerkProvider } from '@clerk/nextjs'
 import { Inter } from 'next/font/google'
 
-import './globals.css'
+import '@/styles/globals.css'
 import type { Metadata } from 'next'
 
 import { ModalProvider } from '@/components/providers/modal-provider'
