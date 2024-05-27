@@ -22,7 +22,13 @@ export class ChannelService {
       include: {
         ChannelMember: {
           include: {
-            member: true,
+            member: {
+              select: {
+                id: true,
+                name: true,
+                imageUrl: true,
+              },
+            },
           },
         },
       },
