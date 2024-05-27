@@ -1,8 +1,8 @@
 'use client'
 
-import ChatMessage from '@/components/chat/chat-message'
+import ChannelMemberList from '@/components/chat/channel-member-list'
+import ChatHistory from '@/components/chat/chat-history'
 import { WebSocketContext } from '@/components/providers/socket-context-provider'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import { Textarea } from '@/components/ui/textarea'
 import CommonTooltip from '@/components/utils/common-tooltip'
 import { ChannelMessageResponse, ChannelResponse } from '@/types/channel-types'
@@ -29,12 +29,11 @@ export default function ChatRoom({
   const chatEndRef = useRef<HTMLDivElement | null>(null)
   const [openMembers, setOpenMembers] = useState(false)
 
-  // チャット受信用socket通信の設定
+  // チャット受信用socket通信の設定ch
   useEffect(() => {
     socket.on('onMessage', (data: ChannelMessageResponse) => {
       setMessages((prev) => [...prev, data])
     })
-    console.log(socket)
 
     return () => {
       console.log('disconnect socket')
@@ -42,7 +41,7 @@ export default function ChatRoom({
     }
   }, [])
 
-  // Shift + Enter で改行する
+  // テキスト入力時にShift + Enter で改行する
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (!isComposing && e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
@@ -53,7 +52,6 @@ export default function ChatRoom({
   const handleSend = async () => {
     if (!inputValue) return
 
-    console.log('send message')
     socket.emit('newMessage', {
       channelId: channel.id,
       senderId: user?.id,
@@ -95,17 +93,10 @@ export default function ChatRoom({
       </div>
 
       <div className='flex-1 p-2 overflow-hidden overflow-y-auto'>
-        {messages && messages?.length === 0 ? (
-          <div className='h-full flex justify-center items-center'>
-            会話履歴がありません。さぁ会話を始めましょう！
-          </div>
+        {openMembers ? (
+          <ChannelMemberList members={channel.ChannelMember} />
         ) : (
-          <ScrollArea>
-            {messages.map((message) => (
-              <ChatMessage key={message.id} message={message} />
-            ))}
-            <div ref={chatEndRef} />
-          </ScrollArea>
+          <ChatHistory messages={messages} chatEndRef={chatEndRef} />
         )}
       </div>
 
