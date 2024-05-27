@@ -20,7 +20,11 @@ export class ChannelService {
     return this.prisma.channel.findUnique({
       where: { id },
       include: {
-        ChannelMember: true,
+        ChannelMember: {
+          include: {
+            member: true,
+          },
+        },
       },
     })
   }
