@@ -94,7 +94,7 @@ export default function ChatRoom({
 
       <div className='flex-1 p-2 overflow-hidden overflow-y-auto'>
         {openMembers ? (
-          <ChannelMemberList members={channel.ChannelMember} />
+          <ChannelMemberList channel={channel} />
         ) : (
           <ChatHistory messages={messages} chatEndRef={chatEndRef} />
         )}

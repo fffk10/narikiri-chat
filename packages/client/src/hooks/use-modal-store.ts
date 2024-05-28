@@ -1,8 +1,11 @@
+import { Channel } from '@prisma/client'
 import { create } from 'zustand'
 
-export type ModalType = 'createChannel'
+export type ModalType = 'createChannel' | 'invite'
 
-interface ModalData {}
+interface ModalData {
+  channel?: Channel
+}
 
 interface ModalStore {
   type: ModalType | null
