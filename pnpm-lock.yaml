@@ -93,6 +93,9 @@ importers:
       uploadthing:
         specifier: ^6.10.1
         version: 6.10.3(express@4.19.2)(next@14.2.3(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.3(ts-node@10.9.2(@types/node@20.12.11)(typescript@5.4.5)))
+      uuid:
+        specifier: ^9.0.1
+        version: 9.0.1
       vaul:
         specifier: ^0.9.1
         version: 0.9.1(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -195,6 +198,9 @@ importers:
       socket.io:
         specifier: ^4.7.5
         version: 4.7.5
+      uuid:
+        specifier: ^9.0.1
+        version: 9.0.1
     devDependencies:
       '@nestjs/cli':
         specifier: ^10.0.0
