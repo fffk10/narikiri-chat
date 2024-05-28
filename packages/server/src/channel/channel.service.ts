@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid'
 import { Injectable } from '@nestjs/common'
 import {
   Channel,
@@ -14,7 +15,7 @@ export class ChannelService {
   /**
    * 単体取得
    * @param where 検索条件
-   * @returns {Promise<Channel | null>} チャンネル
+   * @returns チャンネル
    */
   async getChannelById(id: string): Promise<Channel | null> {
     return this.prisma.channel.findUnique({
@@ -68,6 +69,7 @@ export class ChannelService {
         name: data.name,
         description: data.description,
         imageUrl: data.imageUrl,
+        inviteCode: uuidv4(),
         ChannelMember: {
           create: {
             memberId: data.ownerId,
@@ -83,6 +85,26 @@ export class ChannelService {
     })
 
     return response
+  }
+
+  /**
+   * 単体部分更新
+   */
+  async updateChannel(
+    id: string,
+    data: {
+      name?: string
+      description?: string
+      imageUrl?: string
+      inviteCode?: string
+    }
+  ): Promise<Channel> {
+    return this.prisma.channel.update({
+      where: {
+        id,
+      },
+      data,
+    })
   }
 
   /**

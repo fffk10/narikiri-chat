@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common'
 import { Channel, ChannelMessage } from '@prisma/client'
 
 import { ChannelService } from '@/channel/channel.service'
@@ -34,6 +42,21 @@ export class ChannelController {
   ): Promise<Channel> {
     const response = this.channelService.createChannel(data)
     return response
+  }
+
+  @Patch(':id')
+  @ApiOperation({ summary: 'チャンネル更新API' })
+  async updateChannel(
+    @Param('id') id: string,
+    @Body()
+    data: {
+      name?: string
+      description?: string
+      imageUrl?: string
+      inviteCode?: string
+    }
+  ): Promise<Channel> {
+    return this.channelService.updateChannel(id, data)
   }
 
   @Get(':id/message')
