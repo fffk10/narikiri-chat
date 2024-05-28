@@ -22,7 +22,7 @@ export default function ChannelMemberList({ members }: ChannelMemberListProps) {
             />
           </div>
           <p className='flex my-auto'>
-            {members.member.name} {members.role === 'ADMIN' && <Shield />}
+            {members.member.userName} {members.role === 'ADMIN' && <Shield />}
           </p>
         </div>
       ))}

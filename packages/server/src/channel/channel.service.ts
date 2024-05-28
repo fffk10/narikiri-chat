@@ -25,7 +25,7 @@ export class ChannelService {
             member: {
               select: {
                 id: true,
-                name: true,
+                userName: true,
                 imageUrl: true,
               },
             },
