@@ -22,6 +22,7 @@ enum ChannelType {
 model User {
   id       String @id
   name     String
+  userName String @default("")
   imageUrl String @db.Text()
   email    String @db.Text()
 

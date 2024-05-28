@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "studio": "npx prisma studio"
+    "studio": "npx prisma studio",
+    "generate": "npx prisma generate",
+    "db:push": "npx prisma db push"
   },
   "keywords": [],
   "author": "",
