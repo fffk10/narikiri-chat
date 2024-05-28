@@ -17,15 +17,31 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger'
 export class ChannelController {
   constructor(private readonly channelService: ChannelService) {}
 
+  @Get('/search')
+  @ApiOperation({ summary: 'チャンネル検索API' })
+  async searchChannels(
+    @Query('inviteCode') inviteCode?: string
+  ): Promise<Channel[]> {
+    console.log('searchChannels')
+    const searchParams: Partial<Channel> = {}
+    if (inviteCode) {
+      searchParams.inviteCode = inviteCode
+    }
+    console.log(inviteCode)
+    return this.channelService.searchChannels(searchParams)
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'チャンネルID指定取得API' })
   async channel(@Param('id') id: string): Promise<Channel> {
+    console.log('channel')
     return this.channelService.getChannelById(id)
   }
 
   @Get()
   @ApiOperation({ summary: 'Userが所属するチャンネル一覧を取得' })
   async channels(@Query('userId') userId: string): Promise<Channel[]> {
+    console.log('channels')
     return this.channelService.getChannels(userId)
   }
 

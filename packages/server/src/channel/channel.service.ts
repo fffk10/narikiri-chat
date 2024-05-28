@@ -13,6 +13,22 @@ export class ChannelService {
   constructor(private prisma: PrismaService) {}
 
   /**
+   * チャンネル検索API
+   * @param inviteCode 招待コード
+   */
+  async searchChannels(searchParams: Partial<Channel>): Promise<Channel[]> {
+    const { inviteCode } = searchParams
+    const where: Partial<Channel> = {}
+    if (inviteCode) {
+      where.inviteCode = inviteCode
+    }
+
+    return this.prisma.channel.findMany({
+      where,
+    })
+  }
+
+  /**
    * 単体取得
    * @param where 検索条件
    * @returns チャンネル
