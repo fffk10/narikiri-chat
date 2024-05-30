@@ -4,6 +4,26 @@ Narikiri Chat
 
 [wiki](https://ja.wikipedia.org/wiki/%E3%81%AA%E3%82%8A%E3%81%8D%E3%82%8A)
 
+## setup
+
+1. パッケージインストール
+
+```
+$ pnpm install
+```
+
+2. backend起動
+
+```
+$ pnpm frontend:dev
+```
+
+3. frontend起動
+
+```
+$ pnpm backend:dev
+```
+
 ## Tech
 
 - client(Next.js/14 App Router)
@@ -20,10 +40,10 @@ Narikiri Chat
 ## packages
 
 - packages/client
-フロントエンド用ワークスペース
+  フロントエンド用ワークスペース
 
 - packages/server
-バックエンド用ワークスペース
+  バックエンド用ワークスペース
 
 - packages/database
-prisma型定義をフロント/バックで共有するためのワークスペース
+  prisma型定義をフロント/バックで共有するためのワークスペース
