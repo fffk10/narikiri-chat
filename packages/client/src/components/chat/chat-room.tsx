@@ -29,6 +29,9 @@ export default function ChatRoom({
   const [isComposing, setIsComposing] = useState(false)
   const chatEndRef = useRef<HTMLDivElement | null>(null)
   const [openMembers, setOpenMembers] = useState(false)
+  const [displayType, setDisplayType] = useState<'chat' | 'members' | 'menu'>(
+    'chat'
+  )
 
   // チャット受信用socket通信の設定ch
   useEffect(() => {
@@ -87,9 +90,7 @@ export default function ChatRoom({
             <Users onClick={() => setOpenMembers((prev) => !prev)} />
           </CommonTooltip>
 
-          <CommonTooltip contentText='help'>
-            <Menu onClick={() => console.log('help click')} />
-          </CommonTooltip>
+          <Menu onClick={() => console.log('help click')} />
         </div>
       </div>
 
