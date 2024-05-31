@@ -16,7 +16,7 @@ export default function ChannelMemberList({ channel }: ChannelMemberListProps) {
     <div className='relative h-full'>
       <ScrollArea>
         {ChannelMember.map((member) => (
-          <div key={member.memberId} className='flex gap-2 border-b py-2'>
+          <div key={member.memberId} className='flex gap-2 border-b p-2'>
             <div className='min-w-[40px]'>
               <Image
                 src={member.member.imageUrl || '/user.svg'}

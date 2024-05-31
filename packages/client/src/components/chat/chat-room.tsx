@@ -5,9 +5,10 @@ import ChatHistory from '@/components/chat/chat-history'
 import { WebSocketContext } from '@/components/providers/socket-context-provider'
 import { Textarea } from '@/components/ui/textarea'
 import CommonTooltip from '@/components/utils/common-tooltip'
+import { cn } from '@/lib/utils'
 import { ChannelMessageResponse, ChannelResponse } from '@/types/channel-types'
 import { useUser } from '@clerk/nextjs'
-import { ChevronLeft, CircleHelp, Send, Users } from 'lucide-react'
+import { ChevronLeft, Menu, Send, Users } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useContext, useEffect, useRef, useState } from 'react'
 
@@ -87,7 +88,7 @@ export default function ChatRoom({
           </CommonTooltip>
 
           <CommonTooltip contentText='help'>
-            <CircleHelp onClick={() => console.log('help click')} />
+            <Menu onClick={() => console.log('help click')} />
           </CommonTooltip>
         </div>
       </div>
@@ -101,7 +102,12 @@ export default function ChatRoom({
       </div>
 
       <div className='w-full p-2'>
-        <div className='flex border rounded-md w-full justify-between'>
+        <div
+          className={cn([
+            'flex border rounded-md w-full justify-between',
+            openMembers && 'hidden',
+          ])}
+        >
           <Textarea
             className='flex-1'
             placeholder='メッセージを入力'
