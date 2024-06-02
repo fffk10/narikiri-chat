@@ -24,6 +24,12 @@ $ pnpm frontend:dev
 $ pnpm backend:dev
 ```
 
+## 同時起動
+
+```
+$ pnpm dev
+```
+
 ## Tech
 
 - client(Next.js/14 App Router)
